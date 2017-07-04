@@ -42,76 +42,46 @@ Which function is used to view the contents of your workspace?
 - `view_workspace()`
 
 
---- type:OutputChallenge key:167oSz8A19yBt
+--- type:BlanksChallenge key:167oSz8A19yBt
 ## Identify the class of an object
 
+*** =pre_challenge_code
+```{r}
+library(purrr)
+```
+
 *** =code
 ```{r}
-x <- {{var1}}
-class(x)
+# use a purrr function!
+{{_var1}}(1:3, ~ .x > 1)
 ```
 
 *** =variables
 var1:
-  - '-1.3'
-  - 'c(5, 1)'
-  - '"FALSE"'
-  - '"TRUE"'
-  - 'c(TRUE, FALSE)'
-  - 'c("b", "a")'
-  - 'c(FALSE, TRUE)'
-  - 'TRUE'
-  - 'FALSE'
-  - 'c("-2", "3")'
-  - 'c(12, -10)'
+  - 'map'
+  - 'map_chr'
+  - 'map_int'
+  - 'map_lgl'
 
-
---- type:OutputChallenge key:167CPqNI98fQD
-## Arithmetic operations - 1
-
-*** =code
-```{r}
-x <- {{var1}}
-y <- {{var2}}
-x {{fun1}} y 
-```
-
-*** =variables
-var1:
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-var2:
-  - '1'
-  - '2'
-fun1:
-  - '^'
-  - '-'
-  - '*'
-
-
---- type:OutputChallenge key:167UGAcPjWDNV
+--- type:BlanksChallenge key:167UGAcPjWDNV
 ## Arithmetic operations - 2
 
 *** =code
 ```{r}
-x <- {{$var1}}
-y <- {{$var2}}
-x {{fun1}} y 
+team <- list(
+    c(name = "Godel", country = "Austria"),
+    c(name = "Escher", country = "Netherlands"),
+    c(name = "Bach", country = "Germany")
+    )
+
+purrr::{{_func}}(team, {{_var1}})
 ```
 
 *** =variables
 var1:
-  - '8'
-  - '12'
-  - '16'
-  - '20'
-var2:
-  - '1'
-  - '2'
-  - '4'
-fun1:
-  - '+'
-  - '/'
-  - '%%'
+  - '"country"'
+  - '"name"'
+  - '~ paste(.x, collapse = ",")'
+func:
+  - 'map'
+  - 'map_chr'
