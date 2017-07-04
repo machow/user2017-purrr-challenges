@@ -2,48 +2,8 @@
 title: "intro_to_basics"
 output: html_document
 
---- type:MultipleChoiceChallenge key:167A4VcDii9Ku
-## True basics
-
-*** =assignment1
-Which symbol marks the beginning of a comment in R?
-
-*** =options1
-- `%`
-- `%*`
-- [`#`]
-- `@`
-- `$`
-- `*`
-- `/*`
-
-
-*** =assignment2
-Which of the following is the recommended method of assigning a value to a variable?
-
-*** =options2
-- [`z <- 3`]
-- `z is 3`
-- `z gets 3`
-- `z -> 3`
-- `z == 3`
-
-
-*** =assignment3
-Which function is used to view the contents of your workspace?
-
-*** =options3
-- `show()`
-- [`ls()`]
-- `view()`
-- `View()`
-- `view_contents()`
-- `show_workspace()`
-- `view_workspace()`
-
-
 --- type:BlanksChallenge key:167oSz8A19yBt
-## Identify the class of an object
+## Basic mapping (1)
 
 *** =pre_challenge_code
 ```{r}
@@ -64,15 +24,14 @@ var1:
   - 'map_lgl'
 
 --- type:BlanksChallenge key:167UGAcPjWDNV
-## Arithmetic operations - 2
+## Basic mapping (2)
 
 *** =code
 ```{r}
 team <- list(
     c(name = "Godel", country = "Austria"),
     c(name = "Escher", country = "Netherlands"),
-    c(name = "Bach", country = "Germany")
-    )
+    c(name = "Bach", country = "Germany"))
 
 purrr::{{_func}}(team, {{_var1}})
 ```
@@ -85,3 +44,36 @@ var1:
 func:
   - 'map'
   - 'map_chr'
+
+--- type:BlanksChallenge lang:r xp:100 skills:1 key:a12ac9df7b
+## Basic mapping (3)
+
+*** =pre_challenge_code
+```{r}
+library(purrr)
+n <- 5
+n_groups <- 3
+distance <- rnorm(n*n_groups)
+cost <- rnorm(n*n_groups, sd = rep(runif(n_groups, .5, 1.5), each = n))
+tickets <- data.frame(distance, cost, group = rep(c('a', 'b', 'c'), each = n))
+```
+
+*** =code
+```{r}
+str(tickets)
+
+split_tickets <- split(tickets, tickets$group)
+
+lm_fits <- {{_var1}}
+
+{{_var2}}(lm_fits, {{var3}})
+```
+
+*** =variables
+
+var1:
+  - 'map(split_tickets, ~ lm(cost ~ distance, data = .x))'
+var2:
+  - 'map'
+var3:
+  - 'coef'
