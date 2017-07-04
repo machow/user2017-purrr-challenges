@@ -33,6 +33,7 @@ team <- list(
     c(name = "Escher", country = "Netherlands"),
     c(name = "Bach", country = "Germany"))
 
+print(team)
 purrr::{{_func}}(team, {{_var1}})
 ```
 
@@ -58,22 +59,77 @@ cost <- rnorm(n*n_groups, sd = rep(runif(n_groups, .5, 1.5), each = n))
 tickets <- data.frame(distance, cost, group = rep(c('a', 'b', 'c'), each = n))
 ```
 
-*** =code
+*** =code1
 ```{r}
 str(tickets)
 
-split_tickets <- split(tickets, tickets$group)
+{{split_name}} <- split(tickets, tickets$group)
 
-lm_fits <- {{_var1}}
+# fit linear model of cost ~ distance for each group
+map({{split_name}}, {{_var1}})
 
-{{_var2}}(lm_fits, {{var3}})
+```
+
+*** =code2
+```{r}
+str(tickets)
+
+{{split_name}} <- split(tickets, tickets$group)
+
+# calculate the average cost for each group
+map({{split_name}}, {{_var2}})
+```
+
+*** =code3
+```{r}
+str(tickets)
+
+{{split_name}} <- split(tickets, tickets$group)
+
+# calculate the max distance for each group
+map({{split_name}}, {{_var3}})
 ```
 
 *** =variables
 
+split_name:
+  - 'split_tickets'
+  - 'splits'
+  - 'group_tickets'
 var1:
-  - 'map(split_tickets, ~ lm(cost ~ distance, data = .x))'
+  - '~ lm(cost ~ distance, data = .x)'
 var2:
-  - 'map'
+  - '~ mean(.x$cost)'
 var3:
-  - 'coef'
+  - '~ max(.x$distance)'
+
+
+--- type:BlanksChallenge key:b68021f439
+## Basic mapping (4)
+
+*** =pre_challenge_code
+```{r}
+library(purrr)
+```
+
+*** =code
+```{r}
+{{dat_name}} <- list(
+    c(name = "Godel", country = "Austria"),
+    c(name = "Escher", country = "Netherlands"),
+    c(name = "Bach", country = "Germany"))
+
+
+{{dat_name}} %>% {{_func2}}({{_func}}({{dat_name}}, "name"))
+```
+
+*** =variables
+dat_name:
+  - 'team'
+  - 'people'
+  - 'present'
+func:
+  - 'map_chr'
+  - 'map'
+func2:
+  - 'set_names'
