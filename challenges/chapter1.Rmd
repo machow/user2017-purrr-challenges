@@ -133,3 +133,35 @@ func:
   - 'map'
 func2:
   - 'set_names'
+
+
+--- type:BlanksChallenge key:1cb3ee76c3
+## Basic mapping (5)
+
+*** =pre_challenge_code
+```{r}
+
+library(purrr)
+
+write_temp <- . %>% { data.frame(temp = rnorm(5), id = paste0('day-', ., '.txt')) } 
+walk(1:3, write_temp)
+dat <- data.frame(temp = rnorm(5))
+
+write.csv(dat
+```
+
+*** =code
+```{r}
+read.csv(
+```
+
+*** =variables
+dat_name:
+  - 'team'
+  - 'people'
+  - 'present'
+func:
+  - 'map_chr'
+  - 'map'
+func2:
+  - 'set_names'
